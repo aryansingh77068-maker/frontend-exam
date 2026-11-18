@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bill Splitter</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #result {
+            background: #eee;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Bill Splitter</h2>
+
+    <label>Bill amount (Rs.)</label>
+    <input type="number" id="bill" placeholder="e.g. 1200">
+
+    <label>Tip</label>
+    <select id="tip">
+        <option value="5">5%</option>
+        <option value="10" selected>10%</option>
+        <option value="15">15%</option>
+        <option value="20">20%</option>
+    </select>
+
+    <label>Number of people</label>
+    <input type="number" id="people" value="4">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+function calculate() {
+
+    let bill = Number(document.getElementById("bill").value);
+    let tip = Number(document.getElementById("tip").value);
+    let people = Number(document.getElementById("people").value);
+
+    let result = document.getElementById("result");
+
+    if (bill <= 0 || people <= 0 ||
+        !Number.isInteger(people) ||
+        !Number.isFinite(bill)) {
+
+        result.innerHTML =
+        "Please enter a valid bill and number of people.";
+        return;
+    }
+
+    let tipAmount = bill * tip / 100;
+
+    let totalBill = bill + tipAmount;
+
+    let eachPerson = totalBill / people;
+
+    result.innerHTML =
+        "Tip amount: Rs. " + tipAmount.toFixed(2) +
+        "<br>Total bill: Rs. " + totalBill.toFixed(2) +
+        "<br>Each person pays: Rs. " + eachPerson.toFixed(2);
+}
+</script>
+
+</body>
+</html>
